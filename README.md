@@ -1,14 +1,14 @@
 # tom-vs-jerry
     keys:
 
-    player 1:
+    Tom:
     W - up
     A - left
     S - down
     D - right
     left_CTRL - attack
 
-    player 2:
+    Jerry:
     K_UP - up
     K_LEFT - left
     K_DOWN - down
