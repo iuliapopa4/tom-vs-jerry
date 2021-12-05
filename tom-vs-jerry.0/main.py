@@ -6,7 +6,7 @@ WIDTH, HEIGHT=900,500
 BLACK=(0,0,0)
 RED=(255,0,0)
 WIN=pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("First Game!")
+pygame.display.set_caption("Tom vs Jerry")
 FENCE=pygame.Rect(WIDTH//2-5, 0, 0, HEIGHT)
 SKY=pygame.Rect(0,HEIGHT//2+26,WIDTH,0)
 
@@ -27,6 +27,7 @@ SPACE=pygame.image.load(os.path.join('resources','background.jpg'))
 HEALTH=pygame.image.load(os.path.join('resources','health.png'))
 TOM_WINS=pygame.image.load(os.path.join('resources','tom_wins.png'))
 JERRY_WINS=pygame.image.load(os.path.join('resources','jerry_wins.png'))
+TOM_ATTACK=pygame.image.load(os.path.join('resources','tom_attack.png'))
 
 def draw_window(jerry,tom,jerry_attack,tom_attack,jerry_health,tom_health,health):
     WIN.blit(SPACE,(0,0))
@@ -101,6 +102,7 @@ def main():
     jerry=pygame.Rect(700, 300, 66, 90)
     tom=pygame.Rect(100, 300, 99, 100)
     health=pygame.Rect(40,40,40,40)
+
     jerry_attack=[]
     tom_attack=[]
 
@@ -123,11 +125,11 @@ def main():
                 if event.key==pygame.K_RCTRL and len(jerry_attack)<MAX_ATTACK:
                     attack=pygame.Rect(jerry.x,jerry.y+jerry.height//2-2,10,5)
                     jerry_attack.append(attack)
+
             if event.type==JERRY_GOT_HIT:
                 jerry_health-=1
             if event.type==TOM_GOT_HIT:
                 tom_health-=1
-
         # winner_text=""        
         # if jerry_health<=0:
         #     winner_text="Tom wins!"
@@ -136,13 +138,14 @@ def main():
         # if winner_text!="":
         #     draw_winner(winner_text)
         #     break
-
         if jerry_health<=0:
+
             WIN.blit(TOM_WINS,(130,40))
             pygame.display.update()
             pygame.time.delay(5000)
             break
         if tom_health<=0:
+            
             WIN.blit(JERRY_WINS,(77,40))
             pygame.display.update()
             pygame.time.delay(5000)
@@ -154,7 +157,6 @@ def main():
         move_attack(tom_attack, jerry_attack, tom, jerry)
 
         draw_window(jerry,tom,jerry_attack,tom_attack,jerry_health,tom_health,health)
-
 
     main()
 
