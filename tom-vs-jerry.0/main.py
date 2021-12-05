@@ -79,15 +79,14 @@ def move_attack(tom_attack, jerry_attack, tom, jerry):
         if jerry.colliderect(attack):
             pygame.event.post(pygame.event.Event(JERRY_GOT_HIT))
             tom_attack.remove(attack)
-        elif attack.x<0:
+        elif attack.x>WIDTH:
             tom_attack.remove(attack)
-
     for attack in jerry_attack:
         attack.x-=ATTACK_VEL
         if tom.colliderect(attack):
             pygame.event.post(pygame.event.Event(TOM_GOT_HIT))
             jerry_attack.remove(attack)  
-        elif attack.x>WIDTH:
+        elif attack.x<0:
             jerry_attack.remove(attack)
 
 # def draw_winner(text):
