@@ -25,7 +25,8 @@ TOM=pygame.image.load(os.path.join('resources','tom.png'))
 JERRY=pygame.image.load(os.path.join('resources','jerry.png'))
 SPACE=pygame.image.load(os.path.join('resources','background.jpg'))
 HEALTH=pygame.image.load(os.path.join('resources','health.png'))
-
+TOM_WINS=pygame.image.load(os.path.join('resources','tom_wins.png'))
+JERRY_WINS=pygame.image.load(os.path.join('resources','jerry_wins.png'))
 
 def draw_window(jerry,tom,jerry_attack,tom_attack,jerry_health,tom_health,health):
     WIN.blit(SPACE,(0,0))
@@ -89,11 +90,11 @@ def move_attack(tom_attack, jerry_attack, tom, jerry):
         elif attack.x>WIDTH:
             jerry_attack.remove(attack)
 
-def draw_winner(text):
-    draw_text=WINNER_FONT.render(text,1,(0,0,0))
-    WIN.blit(draw_text,(WIDTH//2-draw_text.get_width()/2,HEIGHT/2-draw_text.get_height()/2))
-    pygame.display.update()
-    pygame.time.delay(5000)
+# def draw_winner(text):
+#     draw_text=WINNER_FONT.render(text,1,(0,0,0))
+#     WIN.blit(draw_text,(WIDTH//2-draw_text.get_width()/2,HEIGHT/2-draw_text.get_height()/2))
+#     pygame.display.update()
+#     pygame.time.delay(5000)
 
     
 
@@ -128,13 +129,24 @@ def main():
             if event.type==TOM_GOT_HIT:
                 tom_health-=1
 
-        winner_text=""        
+        # winner_text=""        
+        # if jerry_health<=0:
+        #     winner_text="Tom wins!"
+        # if tom_health<=0:
+        #     winner_text="Jerry wins!"
+        # if winner_text!="":
+        #     draw_winner(winner_text)
+        #     break
+
         if jerry_health<=0:
-            winner_text="Tom wins!"
+            WIN.blit(TOM_WINS,(130,40))
+            pygame.display.update()
+            pygame.time.delay(5000)
+            break
         if tom_health<=0:
-            winner_text="Jerry wins!"
-        if winner_text!="":
-            draw_winner(winner_text)
+            WIN.blit(JERRY_WINS,(77,40))
+            pygame.display.update()
+            pygame.time.delay(5000)
             break
 
         keys_pressed=pygame.key.get_pressed()
