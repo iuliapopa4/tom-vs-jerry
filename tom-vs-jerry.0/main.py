@@ -7,12 +7,12 @@ BLACK=(0,0,0)
 RED=(255,0,0)
 WIN=pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("First Game!")
-
 FENCE=pygame.Rect(WIDTH//2-5, 0, 0, HEIGHT)
 SKY=pygame.Rect(0,HEIGHT//2+26,WIDTH,0)
 
-HEALTH_FONT=pygame.font.SysFont('corbel',30)
+#HEALTH_FONT=pygame.font.SysFont('corbel',30)
 WINNER_FONT=pygame.font.SysFont('corbel',100)
+
 FPS=60
 VEL=5
 ATTACK_VEL=7
@@ -21,30 +21,29 @@ MAX_ATTACK=3
 TOM_GOT_HIT=pygame.USEREVENT+1
 JERRY_GOT_HIT=pygame.USEREVENT+2
 
-#PLAYER_WIDTH, PLAYER_HEIGHT=100,90
 TOM=pygame.image.load(os.path.join('resources','tom.png'))
-#TOM=pygame.transform.scale(TOM,(PLAYER_WIDTH, PLAYER_HEIGHT))
-
 JERRY=pygame.image.load(os.path.join('resources','jerry.png'))
-#JERRY=pygame.transform.scale(JERRY,(PLAYER_WIDTH, PLAYER_HEIGHT))
-
 SPACE=pygame.image.load(os.path.join('resources','background.jpg'))
+HEALTH=pygame.image.load(os.path.join('resources','health.png'))
 
 
-def draw_window(jerry,tom,jerry_attack,tom_attack,jerry_health,tom_health):
+def draw_window(jerry,tom,jerry_attack,tom_attack,jerry_health,tom_health,health):
     WIN.blit(SPACE,(0,0))
     pygame.draw.rect(WIN, BLACK, FENCE)
     pygame.draw.rect(WIN, BLACK, SKY)
 
-    jerry_health_text=HEALTH_FONT.render(f"Health:{jerry_health}",1, (0,0,0))
-    tom_health_text=HEALTH_FONT.render(f"Health:{tom_health}",1, (0,0,0))
-    WIN.blit(jerry_health_text,(WIDTH-jerry_health_text.get_width()-10,10))
-    WIN.blit(tom_health_text,(10,10))
+    #jerry_health_text=HEALTH_FONT.render(f"Health:{jerry_health}",1, (0,0,0))
+    #tom_health_text=HEALTH_FONT.render(f"Health:{tom_health}",1, (0,0,0))
+    # WIN.blit(jerry_health_text,(WIDTH-jerry_health_text.get_width()-10,10))
+    # WIN.blit(tom_health_text,(10,10))
+    
+    for i in range(tom_health):
+        WIN.blit(HEALTH,(i*health.x,0))
+    for i in range(jerry_health):
+        WIN.blit(HEALTH,(i*health.x+500,0))
 
     WIN.blit(TOM,(tom.x,tom.y))
     WIN.blit(JERRY,(jerry.x,jerry.y))
-
-
 
     for attack in jerry_attack:
             pygame.draw.rect(WIN,RED,attack)
@@ -96,13 +95,15 @@ def draw_winner(text):
     pygame.display.update()
     pygame.time.delay(5000)
 
+    
+
 def main():
     jerry=pygame.Rect(700, 300, 66, 90)
     tom=pygame.Rect(100, 300, 99, 100)
-
+    health=pygame.Rect(40,40,40,40)
     jerry_attack=[]
     tom_attack=[]
-    
+
     tom_health=10
     jerry_health=10
 
@@ -139,10 +140,9 @@ def main():
         keys_pressed=pygame.key.get_pressed()
         tom_move(keys_pressed,tom)
         jerry_move(keys_pressed,jerry)
-
         move_attack(tom_attack, jerry_attack, tom, jerry)
 
-        draw_window(jerry,tom,jerry_attack,tom_attack,jerry_health,tom_health)
+        draw_window(jerry,tom,jerry_attack,tom_attack,jerry_health,tom_health,health)
 
 
     main()
