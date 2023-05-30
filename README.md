@@ -8,7 +8,6 @@ This project is a simple game called "Tom vs Jerry" implemented using the Pygame
     S - down
     D - right
     left_CTRL - attack
-    
     Jerry:
     K_UP - up
     K_LEFT - left
